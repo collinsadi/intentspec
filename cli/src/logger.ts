@@ -35,13 +35,22 @@ export function logStep(message: string): void {
 
 /** Log the INTENT SPEC ASCII banner (clean, modern) */
 export function logBanner(): void {
-  const c = (s: string) => chalk.bold.hex("#6366f1")(s);
-  const c2 = (s: string) => chalk.bold.hex("#8b5cf6")(s);
-  const line = chalk.dim("────────────────────────────");
   const banner = `
-${line}
- ${c("INTENT")} ${c2("SPEC")}
-${line}
+
+██╗███╗   ██╗████████╗███████╗███╗   ██╗████████╗
+██║████╗  ██║╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝
+██║██╔██╗ ██║   ██║   █████╗  ██╔██╗ ██║   ██║   
+██║██║╚██╗██║   ██║   ██╔══╝  ██║╚██╗██║   ██║   
+██║██║ ╚████║   ██║   ███████╗██║ ╚████║   ██║   
+╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝   
+                                                 
+███████╗██████╗ ███████╗ ██████╗                 
+██╔════╝██╔══██╗██╔════╝██╔════╝                 
+███████╗██████╔╝█████╗  ██║                      
+╚════██║██╔═══╝ ██╔══╝  ██║                      
+███████║██║     ███████╗╚██████╗                 
+╚══════╝╚═╝     ╚══════╝ ╚═════╝                 
+                                                  
 `;
-  console.log(banner);
+  console.log(chalk.blue(banner));
 }
