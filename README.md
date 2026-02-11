@@ -14,7 +14,6 @@
 6. [Developer Workflow](#-developer-workflow)
 7. [Whitepaper: The Semantic Safety Frontier](#-whitepaper-the-semantic-safety-frontier)
 8. [Impact & Usefulness](#-impact--usefulness)
-9. [Roadmap](#-roadmap)
 
 ## Abstract
 
@@ -41,13 +40,10 @@ Intent Spec provides a **Metadata Discovery Standard** and **Tooling Suite** tha
 ## Project Structure
 
 ```text
-agent-layer-sdk/
-├── packages/
-│   ├── solidity-lib/       # ERC-7856 Interface & Base Contracts
-│   ├── cli/                # @agent-layer/cli (The AST Parser & IPFS Uploader)
-│   ├── vscode-extension/   # IDE support for @custom:agent tags
-│   └── schema/             # The JSON-LD Intent Specification
-└── examples/               # Reference implementations (Sepolia)
+
+├── cli/                # @intentspec CLI to parse natspec tags and generate intentspec.json
+└── schema/             # The JSON-LD Intent Specification
+
 
 ```
 
@@ -55,7 +51,7 @@ agent-layer-sdk/
 
 ## The Intent Schema (Standard v1.0)
 
-The `intentspec.json` file uses a strict schema so agents can parse it without ambiguity. All text is brief and precise for AI consumption. Schema: `packages/schema/intentspec.schema.json`.
+The `intentspec.json` file uses a strict schema so agents can parse it without ambiguity. All text is brief and precise for AI consumption. Schema: `schema/intentspec.schema.json`.
 
 **Example `intentspec.json`:**
 
@@ -161,14 +157,6 @@ Preliminary benchmarks suggest this reduces catastrophic agent errors by up to *
 
 ---
 
-## Roadmap
 
-- [🚧] Core ERC-7856 Interface & CLI Parser
-- [🚧] Example Contract on Sepolia
-- [🚧] VSCode Extension Beta
-- [🚧] Integration with ENS Metadata Service
-- [🚧] "Agent-Certified" Auditor Registry
-
----
 
 This [AI Agents and JSON Schema Tutorial](https://www.youtube.com) illustrates how structured metadata and strict schemas are used to guide AI agents in making precise, platform-ready decisions without human intervention.
