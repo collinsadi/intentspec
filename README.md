@@ -2,6 +2,8 @@
 
 ### _Bridging the Semantic Gap between On-Chain Logic and Autonomous Reasoning_
 
+📦 **[CLI Tool on npm](https://www.npmjs.com/package/intentspec?activeTab=readme)**
+
 ---
 
 ## Table of Contents
