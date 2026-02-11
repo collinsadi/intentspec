@@ -22,7 +22,6 @@ npx intentspec compile
 npx intentspec extract-natspec --file path/to/Contract.sol
 ```
 
-Requires the `intentspec` package to be published on npm.
 
 ### Option 2: Install globally
 
@@ -90,14 +89,13 @@ intentspec compile -d ./src
 - Creates `intentspec/` in the root directory you specify.
 - For each `.sol` file that has a **contract** and at least one function with `@custom:agent-intent`, writes `intentspec/<ContractName>.json`.
 - Skips files that do not declare a contract or have no valid agent NatSpec.
-- Output is colored (success, warning, error) and includes a short “next steps” summary when compilation succeeds.
 
 **Example:**
 
 ```bash
 cd my-project
 intentspec compile
-# → Creates intentspec/UserProxy.json, intentspec/Token.json, etc.
+# → Creates  intentspec/Token.json, etc.
 ```
 
 ---
@@ -157,7 +155,7 @@ Only functions that have **`@custom:agent-intent`** are included in the generate
 
 ## Output schema
 
-Generated JSON follows the [Intent Spec schema](https://ascd.io/v1/intentspec.schema.json). Each file under `intentspec/` looks like:
+Generated JSON follows the [Intent Spec schema](https://intentspec.collinsadi.xyz/v1/intentspec.schema.json). Each file under `intentspec/` looks like:
 
 ```json
 {
