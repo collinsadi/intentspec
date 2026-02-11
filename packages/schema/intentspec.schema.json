@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ascd.io/v1/intentspec.schema.json",
+  "title": "IntentSpec",
+  "type": "object",
+  "required": ["contract", "functions"],
+  "properties": {
+    "contract": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "intent"],
+        "properties": {
+          "name": { "type": "string" },
+          "signature": { "type": "string", "description": "EVM function selector in hexadecimal (0x + 8 hex chars)" },
+          "intent": { "type": "string" },
+          "preconditions": { "type": "array", "items": { "type": "string" } },
+          "effects": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } },
+          "agentGuidance": { "type": "string" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

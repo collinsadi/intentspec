@@ -1,0 +1,35 @@
+{
+  "name": "@intent-spec/cli",
+  "version": "0.1.0",
+  "description": "CLI for IntentSpec",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "intent-spec": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "intent-spec",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "ethereum-cryptography": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}
