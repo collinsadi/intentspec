@@ -1,0 +1,63 @@
+{
+  "contract": {
+    "name": "UserProxy",
+    "version": "1.0",
+    "description": "Proxy contract for user operations; only owner or designated user can execute."
+  },
+  "functions": [
+    {
+      "name": "exec",
+      "intent": "Execute an arbitrary call to a target contract; may approve ERC20 if needed.",
+      "preconditions": [
+        "Caller is owner or user.",
+        "target is not zero and not this contract."
+      ],
+      "effects": [
+        "If token and amount set, may approve target to spend tokens.",
+        "Emits Executed; on failure reverts with target's reason or ExecutionFailed."
+      ],
+      "risks": [
+        "External call can perform any action; validate target and data off-chain."
+      ],
+      "agentGuidance": "Simulate the call first; ensure target is trusted.",
+      "signature": "0xa55f65fe"
+    },
+    {
+      "name": "withdrawERC20",
+      "intent": "Withdraw a specific amount of ERC20 tokens to an address.",
+      "preconditions": [
+        "Caller is owner or user.",
+        "token and to are non-zero; amount > 0 and balance sufficient."
+      ],
+      "effects": [
+        "Balance of this contract decreases; to receives tokens. Emits TokensWithdrawn."
+      ],
+      "risks": [
+        "Irreversible transfer."
+      ],
+      "signature": "0x44004cc1"
+    }
+  ],
+  "events": [
+    {
+      "name": "Executed",
+      "description": "Emitted when an external call is executed; includes target and success."
+    },
+    {
+      "name": "TokensWithdrawn",
+      "description": "Emitted when ERC20/ERC721/ERC1155 tokens are withdrawn."
+    },
+    {
+      "name": "ETHWithdrawn",
+      "description": "Emitted when ETH is withdrawn."
+    },
+    {
+      "name": "TokenApproved",
+      "description": "Emitted when ERC20 approval is granted for a target."
+    }
+  ],
+  "invariants": [
+    "owner and user are set at construction and immutable.",
+    "Only owner or user can call protected functions unless documented otherwise."
+  ]
+}

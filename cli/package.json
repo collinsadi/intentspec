@@ -1,17 +1,17 @@
 {
-  "name": "@intent-spec/cli",
+  "name": "intentspec",
   "version": "0.1.0",
   "description": "CLI for IntentSpec",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "intent-spec": "dist/index.js"
+    "intentspec": "dist/index.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node scripts/fix-emit-imports.mjs",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
     "clean": "rm -rf dist"
@@ -20,11 +20,12 @@
     "node": ">=18"
   },
   "keywords": [
-    "intent-spec",
+    "intentspec",
     "cli"
   ],
   "license": "MIT",
   "dependencies": {
+    "chalk": "^5.6.2",
     "commander": "^12.1.0",
     "ethereum-cryptography": "^3.2.0"
   },
