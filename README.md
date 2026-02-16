@@ -13,6 +13,7 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Example](#example)
 - [Project Structure](#project-structure)
 - [The Intent Schema](#the-intent-schema)
 - [Developer Workflow](#developer-workflow)
@@ -81,6 +82,28 @@ npx intentspec extract-natspec -f contracts/MyContract.sol
 
 ---
 
+## Example
+
+The **[example/](example/)** folder contains a reference contract with full Intent Spec NatSpec annotations:
+
+- **[example/UserProxy.sol](example/UserProxy.sol)** — A user proxy contract (owner/user–guarded execution, token withdrawals, ETH handling) annotated with contract-level tags (`@custom:agent-version`, `agent-description`, `agent-invariant`, `agent-event`) and function-level tags (`@custom:agent-intent`, `agent-precondition`, `agent-effect`, `agent-risk`, `agent-guidance`).
+
+To generate the Intent Spec JSON from the example:
+
+```bash
+npx intentspec extract-natspec -f example/UserProxy.sol
+```
+
+Or from the repo root to compile all `.sol` files (including the example) into `intentspec/`:
+
+```bash
+npx intentspec compile -d .
+```
+
+Use this contract as a reference when annotating your own Solidity code.
+
+---
+
 ## Project Structure
 
 ```
@@ -88,6 +111,8 @@ intent-spec/
 ├── cli/          # intentspec CLI — parses NatSpec and generates intentspec JSON
 │   ├── src/      # TypeScript source (index.ts, natspec.ts, logger.ts)
 │   └── dist/     # Compiled output (published to npm)
+├── example/      # Example contract with full Intent Spec NatSpec
+│   └── UserProxy.sol
 ├── schema/       # Intent Spec JSON Schema
 │   └── intentspec.schema.json
 ├── solidity/     # Solidity interface for on-chain metadata discovery
@@ -203,11 +228,11 @@ Agents interact with contracts via the **Application Binary Interface (ABI)**. T
 
 ## The Solution
 
-Intent Spec provides a **metadata discovery standard** and **tooling** that anchor semantic intent to the contract. Metadata can be referenced by a verifiable hash (e.g. IPFS) and, with standards like ERC-7856, discovered on-chain via `agentMetadataURI()`.
+Intent Spec gives you a **metadata standard** and **tooling** so a contract’s semantic intent lives in one place and is machine-readable.
 
-- **Discovery** — Agent queries metadata (e.g. via ERC-7856).
-- **Validation** — Compare declared intent and preconditions to the agent’s goal.
-- **Simulation** — Run local EVM simulation and compare state changes with metadata.
+- **Declare once** — Annotate your Solidity with `@custom:agent-*` NatSpec; the CLI emits schema-strict JSON (intent, preconditions, effects, risks, guidance).
+- **Publish & point** — Host the generated spec at a stable URI (e.g. IPFS). Implement **`IIntentSpec`** and return that URI from `getIntentSpecURI()` so agents can resolve it on-chain.
+- **Agent loop** — Agents **discover** the spec (call `getIntentSpecURI()` or use a registry), **validate** their goal against the declared intent and preconditions, and **simulate** locally to confirm state changes match the metadata before signing.
 
 ---
 
