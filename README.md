@@ -2,7 +2,7 @@
 
 **Agent-readable smart contract documentation layer** — bridging the semantic gap between on-chain logic and autonomous reasoning.
 
-**[Demo Video](https://www.youtube.com/watch?v=6IwccYEbqZc)** · **[CLI on npm](https://www.npmjs.com/package/intentspec)**
+**[Website](https://intentspec.collinsadi.xyz)** · **[Demo Video](https://www.youtube.com/watch?v=6IwccYEbqZc)** · **[CLI on npm](https://www.npmjs.com/package/intentspec)**
 
 [![npm](https://img.shields.io/npm/v/intentspec)](https://www.npmjs.com/package/intentspec)
 
@@ -113,6 +113,8 @@ intent-spec/
 │   └── dist/     # Compiled output (published to npm)
 ├── example/      # Example contract with full Intent Spec NatSpec
 │   └── UserProxy.sol
+├── landing/      # Intent Spec landing site (https://intentspec.collinsadi.xyz)
+│   └── ...       # React + Vite + Tailwind
 ├── schema/       # Intent Spec JSON Schema
 │   └── intentspec.schema.json
 ├── solidity/     # Solidity interface for on-chain metadata discovery
