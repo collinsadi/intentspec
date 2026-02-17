@@ -16,46 +16,89 @@ export function DemoSection() {
   const [demoSource, setDemoSource] = useState(DEFAULT_SOLIDITY)
   const [terminalInput, setTerminalInput] = useState('')
   const [terminalHistory, setTerminalHistory] = useState<HistoryItem[]>([])
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
+  const [historyIndex, setHistoryIndex] = useState<number | null>(null)
+  const [historyDraft, setHistoryDraft] = useState('')
   const [expanded, setExpanded] = useState(false)
   const [splitPercent, setSplitPercent] = useState(50)
   const [resizing, setResizing] = useState(false)
 
-  const runCompile = () => {
-    const result = extractIntentSpec(demoSource)
-    const cmd = terminalInput.trim() || 'npx intentspec compile'
-    setTerminalHistory((prev) => [...prev, { cmd, result }])
+  const DEFAULT_CMD = 'npx intentspec compile'
+
+  const pushCommandHistory = (cmd: string) => {
+    setCommandHistory((prev) => [...prev, cmd])
+    setHistoryIndex(null)
+    setHistoryDraft('')
+  }
+
+  const executeCommand = (raw: string) => {
+    const cmd = raw.trim()
+    const lower = cmd.toLowerCase()
+
+    if (lower === 'clear') {
+      setTerminalHistory([])
+      setTerminalInput('')
+      pushCommandHistory('clear')
+      return
+    }
+
+    const effectiveCmd = cmd || DEFAULT_CMD
+    if (!cmd || isCompileCommand(cmd)) {
+      const result = extractIntentSpec(demoSource)
+      setTerminalHistory((prev) => [...prev, { cmd: effectiveCmd, result }])
+      setTerminalInput('')
+      pushCommandHistory(effectiveCmd)
+      return
+    }
+
+    setTerminalHistory((prev) => [
+      ...prev,
+      { cmd, result: { ok: false, error: 'Unknown command. Try: npx intentspec compile' } },
+    ])
     setTerminalInput('')
+    pushCommandHistory(cmd)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const cmd = terminalInput.trim()
-    if (cmd.toLowerCase() === 'clear') {
-      setTerminalHistory([])
-      setTerminalInput('')
-      return
-    }
-    if (!cmd || isCompileCommand(cmd)) runCompile()
-    else {
-      setTerminalHistory((prev) => [...prev, { cmd, result: { ok: false, error: 'Unknown command. Try: npx intentspec compile' } }])
-      setTerminalInput('')
-    }
+    executeCommand(terminalInput)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      if (commandHistory.length === 0) return
+      e.preventDefault()
+      if (historyIndex === null) {
+        setHistoryDraft(terminalInput)
+        const next = commandHistory.length - 1
+        setHistoryIndex(next)
+        setTerminalInput(commandHistory[next] ?? '')
+      } else {
+        const next = Math.max(0, historyIndex - 1)
+        setHistoryIndex(next)
+        setTerminalInput(commandHistory[next] ?? '')
+      }
+      return
+    }
+
+    if (e.key === 'ArrowDown') {
+      if (commandHistory.length === 0 || historyIndex === null) return
+      e.preventDefault()
+      if (historyIndex >= commandHistory.length - 1) {
+        setHistoryIndex(null)
+        setTerminalInput(historyDraft)
+        setHistoryDraft('')
+      } else {
+        const next = historyIndex + 1
+        setHistoryIndex(next)
+        setTerminalInput(commandHistory[next] ?? '')
+      }
+      return
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault()
-      const cmd = terminalInput.trim()
-      if (cmd.toLowerCase() === 'clear') {
-        setTerminalHistory([])
-        setTerminalInput('')
-        return
-      }
-      if (!cmd || isCompileCommand(cmd)) runCompile()
-      else {
-        setTerminalHistory((prev) => [...prev, { cmd, result: { ok: false, error: 'Unknown command. Try: npx intentspec compile' } }])
-        setTerminalInput('')
-      }
+      executeCommand(terminalInput)
     }
   }
 
@@ -147,6 +190,9 @@ export function DemoSection() {
                         <div className="text-gray-500">→ Found 1 .sol file(s)</div>
                         <div className="text-cyan-400">ℹ️ Creating output directory: intentspec/</div>
                         <div className="text-gray-500">→ Wrote intentspec/{item.result.contractName}.json</div>
+                        {item.result.warning && (
+                          <div className="text-amber-400 mt-1">⚠️ {item.result.warning}</div>
+                        )}
                         <div className="my-2 overflow-x-auto overflow-y-hidden">
                           <pre
                             className="font-mono leading-tight text-blue-400 whitespace-pre w-max min-w-0"
@@ -262,6 +308,9 @@ export function DemoSection() {
                               <div className="text-gray-500">→ Found 1 .sol file(s)</div>
                               <div className="text-cyan-400">ℹ️ Creating output directory: intentspec/</div>
                               <div className="text-gray-500">→ Wrote intentspec/{item.result.contractName}.json</div>
+                              {item.result.warning && (
+                                <div className="text-amber-400 mt-1">⚠️ {item.result.warning}</div>
+                              )}
                               <div className="my-2 overflow-x-auto overflow-y-hidden">
                                 <pre className="font-mono leading-tight text-blue-400 whitespace-pre w-max min-w-0" style={{ fontSize: 'clamp(0.4rem, 2.2vw, 0.75rem)', fontVariantNumeric: 'tabular-nums' }}>{CLI_BANNER}</pre>
                               </div>

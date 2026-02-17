@@ -24,7 +24,7 @@ export function getTagValues(block: string, tag: string): string[] {
 }
 
 export type ExtractResult =
-  | { ok: true; json: object; contractName: string }
+  | { ok: true; json: object; contractName: string; warning?: string }
   | { ok: false; error: string }
 
 /** In-browser extractor: parses @custom:agent-* tags and emits schema-shaped JSON. */
@@ -79,12 +79,18 @@ export function extractIntentSpec(source: string): ExtractResult {
     })
   }
 
-  if (functions.length === 0)
-    return { ok: false, error: 'No function with @custom:agent-intent found. Add at least one.' }
-
   const result: Record<string, unknown> = { contract, functions }
   if (events.length > 0) result.events = events
   if (invariants.length > 0) result.invariants = invariants
+
+  if (functions.length === 0) {
+    return {
+      ok: true,
+      json: result,
+      contractName,
+      warning: 'No function with @custom:agent-intent found. Add at least one.',
+    }
+  }
   return { ok: true, json: result, contractName }
 }
 
