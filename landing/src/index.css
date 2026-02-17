@@ -39,3 +39,12 @@ body {
     linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
   background-size: 64px 64px;
 }
+
+/* Force syntax highlighter overlay to match textarea line-by-line (overrides library inline styles) */
+.editor-highlighter-overlay,
+.editor-highlighter-overlay * {
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-mono), ui-monospace, monospace !important;
+  letter-spacing: normal !important;
+}
