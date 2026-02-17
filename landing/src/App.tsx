@@ -20,7 +20,7 @@ function App() {
         <section className="pt-20 pb-16 md:pt-28 md:pb-24">
           <p className="font-mono text-sm text-green-500 mb-4">Agent-readable metadata for smart contracts</p>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-[1.15]">
-            Bridge the semantic gap between on-chain logic and autonomous reasoning.
+            Bridge the semantic gap between onchain logic and autonomous reasoning.
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl leading-relaxed mb-10">
             Add a standardized, machine-verifiable metadata layer so developers can declare a function's intent, economic impact, and safety boundaries. Turn opaque bytecode into structured semantics.

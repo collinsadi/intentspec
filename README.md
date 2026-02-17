@@ -1,6 +1,6 @@
 # Intent Spec
 
-**Agent-readable smart contract documentation layer** — bridging the semantic gap between on-chain logic and autonomous reasoning.
+**Agent-readable smart contract documentation layer** — bridging the semantic gap between onchain logic and autonomous reasoning.
 
 **[Website](https://intentspec.collinsadi.xyz)** · **[Demo Video](https://www.youtube.com/watch?v=6IwccYEbqZc)** · **[CLI on npm](https://www.npmjs.com/package/intentspec)**
 
@@ -28,7 +28,7 @@
 
 ## Overview
 
-On-chain activity is increasingly driven by **autonomous agents**. Smart contracts, however, remain optimized for human auditors. Agents today infer behavior from function names and ABIs alone, which is brittle and error-prone.
+Onchain activity is increasingly driven by **autonomous agents**. Smart contracts, however, remain optimized for human auditors. Agents today infer behavior from function names and ABIs alone, which is brittle and error-prone.
 
 **Intent Spec** adds a standardized, machine-verifiable metadata layer so developers can declare a function’s **intent**, **economic impact**, and **safety boundaries**. By turning opaque bytecode into structured semantics, Intent Spec reduces systemic risk and supports a safer agentic economy.
 
@@ -72,7 +72,7 @@ Full CLI docs (options, build from source): **[cli/README.md](cli/README.md)**.
 
    This scans for `.sol` files (excluding `node_modules` and `.git`), extracts metadata, and writes one JSON file per contract to **`intentspec/<ContractName>.json`**.
 
-3. **Inspect or publish** the generated files (e.g. use in agents, docs, or upload to IPFS and point on-chain metadata to the hash).
+3. **Inspect or publish** the generated files (e.g. use in agents, docs, or upload to IPFS and point onchain metadata to the hash).
 
 To extract from a **single file** and print JSON to stdout:
 
@@ -117,7 +117,7 @@ intent-spec/
 │   └── ...       # React + Vite + Tailwind
 ├── schema/       # Intent Spec JSON Schema
 │   └── intentspec.schema.json
-├── solidity/     # Solidity interface for on-chain metadata discovery
+├── solidity/     # Solidity interface for onchain metadata discovery
 │   └── IIntentSpec.sol   # getIntentSpecURI() — returns IPFS/URI of intentspec.json
 ├── README.md
 └── LICENSE
@@ -194,7 +194,7 @@ Generated files conform to **`schema/intentspec.schema.json`**. All text is brie
    npx intentspec extract-natspec -f path/to/Contract.sol
    ```
 
-3. **Publish** — Upload the generated `intentspec/*.json` to IPFS (or another URI), then have your contract expose it on-chain by implementing **`IIntentSpec`** from `solidity/IIntentSpec.sol` and returning that URI from `getIntentSpecURI()`. Agents can then discover the spec by calling this function.
+3. **Publish** — Upload the generated `intentspec/*.json` to IPFS (or another URI), then have your contract expose it onchain by implementing **`IIntentSpec`** from `solidity/IIntentSpec.sol` and returning that URI from `getIntentSpecURI()`. Agents can then discover the spec by calling this function.
 
 ---
 
@@ -233,7 +233,7 @@ Agents interact with contracts via the **Application Binary Interface (ABI)**. T
 Intent Spec gives you a **metadata standard** and **tooling** so a contract’s semantic intent lives in one place and is machine-readable.
 
 - **Declare once** — Annotate your Solidity with `@custom:agent-*` NatSpec; the CLI emits schema-strict JSON (intent, preconditions, effects, risks, guidance).
-- **Publish & point** — Host the generated spec at a stable URI (e.g. IPFS). Implement **`IIntentSpec`** and return that URI from `getIntentSpecURI()` so agents can resolve it on-chain.
+- **Publish & point** — Host the generated spec at a stable URI (e.g. IPFS). Implement **`IIntentSpec`** and return that URI from `getIntentSpecURI()` so agents can resolve it onchain.
 - **Agent loop** — Agents **discover** the spec (call `getIntentSpecURI()` or use a registry), **validate** their goal against the declared intent and preconditions, and **simulate** locally to confirm state changes match the metadata before signing.
 
 ---

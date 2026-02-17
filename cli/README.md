@@ -194,7 +194,7 @@ Generated JSON follows the [Intent Spec schema](https://intentspec.collinsadi.xy
    ```bash
    npx intentspec compile
    ```
-3. **Inspect** `intentspec/<ContractName>.json` and use it for agents, docs, or publishing (e.g. IPFS + on-chain pointer).
+3. **Inspect** `intentspec/<ContractName>.json` and use it for agents, docs, or publishing (e.g. IPFS + onchain pointer).
 
 Re-run `intentspec compile` after changing NatSpec to refresh the JSON.
 
