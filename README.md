@@ -1,5 +1,7 @@
 # Intent Spec
 
+**[EIP-2004 DRAFT](EIP2004.md)**
+
 **Agent-readable smart contract documentation layer** — bridging the semantic gap between onchain logic and autonomous reasoning.
 
 **[Website](https://intentspec.collinsadi.xyz)** · **[Demo Video](https://www.youtube.com/watch?v=6IwccYEbqZc)** · **[CLI on npm](https://www.npmjs.com/package/intentspec)**
