@@ -1,6 +1,6 @@
 # Intent Spec
 
-**[EIP-2004 DRAFT](EIP2004.md)**
+**[EIP-2004 DRAFT](EIP2004.md)** · **[ERC Pull Request (ethereum/ERCs #1557)](https://github.com/ethereum/ERCs/pull/1557)**
 
 **Agent-readable smart contract documentation layer** — bridging the semantic gap between onchain logic and autonomous reasoning.
 
